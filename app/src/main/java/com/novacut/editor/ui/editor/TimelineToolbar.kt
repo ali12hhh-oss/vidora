@@ -31,7 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.novacut.editor.R
 import com.novacut.editor.model.TimelineRange
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 
 internal const val TIMELINE_TOOLBAR_MIN_ZOOM = 0.01f
 internal const val TIMELINE_TOOLBAR_MAX_ZOOM = 10f
@@ -127,7 +127,7 @@ internal fun TimelineToolbarControls(
             compact = compact,
             highlight = true,
             enabled = canSplitAtPlayhead,
-            testTag = ClearCutTestTags.TIMELINE_SPLIT,
+            testTag = VidoraTestTags.TIMELINE_SPLIT,
             onClick = onSplitAtPlayhead,
         )
         if (selectedClipId != null) {
@@ -137,7 +137,7 @@ internal fun TimelineToolbarControls(
                 compact = compact,
                 highlight = true,
                 destructive = true,
-                testTag = ClearCutTestTags.TIMELINE_DELETE,
+                testTag = VidoraTestTags.TIMELINE_DELETE,
                 onClick = onDeleteSelectedClip,
             )
         }
