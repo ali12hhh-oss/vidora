@@ -53,7 +53,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.ContextCompat
 import com.novacut.editor.BuildConfig
-import com.novacut.editor.ClearCutApp
+import com.novacut.editor.VidoraApp
 import com.novacut.editor.R
 import com.novacut.editor.engine.AppearanceMode
 import com.novacut.editor.engine.AppSettings
@@ -745,7 +745,7 @@ fun SettingsScreen(
             title = stringResource(R.string.settings_about),
             description = stringResource(R.string.settings_about_description)
         ) {
-            SettingsInfo(Icons.Default.Info, stringResource(R.string.settings_version), ClearCutApp.VERSION, ClearCutAccents.Sapphire)
+            SettingsInfo(Icons.Default.Info, stringResource(R.string.settings_version), VidoraApp.VERSION, ClearCutAccents.Sapphire)
             SettingsInfo(Icons.Default.Movie, stringResource(R.string.settings_engine), stringResource(R.string.settings_engine_value), ClearCutAccents.Peach)
             SettingsInfo(Icons.Default.AutoAwesome, stringResource(R.string.settings_ai_models), stringResource(R.string.settings_ai_models_value), ClearCutAccents.Mauve)
         }
