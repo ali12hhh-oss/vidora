@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.semantics.semantics
@@ -106,7 +107,7 @@ class MainActivity : ComponentActivity() {
                 CompositionLocalProvider(
                     LocalContext provides localizedContext,
                     LocalConfiguration provides localizedConfiguration,
-                    androidx.compose.ui.unit.LocalLayoutDirection provides layoutDirection
+                    LocalLayoutDirection provides layoutDirection
                 ) {
                 val navController = rememberNavController()
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
