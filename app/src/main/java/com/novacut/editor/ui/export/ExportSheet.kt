@@ -114,7 +114,7 @@ import com.novacut.editor.model.TextOverlay
 import com.novacut.editor.model.VideoCodec
 import com.novacut.editor.model.Watermark
 import com.novacut.editor.model.WatermarkPosition
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.theme.LocalClearCutColors
 import com.novacut.editor.ui.theme.Motion
 import com.novacut.editor.ui.theme.ClearCutChromeIconButton
@@ -502,7 +502,7 @@ fun ExportSheet(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .testTag(ClearCutTestTags.EXPORT_SHEET)
+            .testTag(VidoraTestTags.EXPORT_SHEET)
             .background(semanticColors.background, containerShape)
             .verticalScroll(rememberScrollState())
             .padding(horizontal = Spacing.lg, vertical = 14.dp)
@@ -539,7 +539,7 @@ fun ExportSheet(
                     tint = semanticColors.text,
                     containerColor = Color.Transparent,
                     borderColor = Color.Transparent,
-                    modifier = Modifier.testTag(ClearCutTestTags.EXPORT_CLOSE),
+                    modifier = Modifier.testTag(VidoraTestTags.EXPORT_CLOSE),
                     size = 40.dp
                 )
             }
@@ -807,7 +807,7 @@ fun ExportSheet(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-                .testTag(ClearCutTestTags.EXPORT_PRIMARY_ACTION)
+                .testTag(VidoraTestTags.EXPORT_PRIMARY_ACTION)
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -1680,7 +1680,7 @@ fun ExportSheet(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(54.dp)
-                    .testTag(ClearCutTestTags.EXPORT_PRIMARY_ACTION)
+                    .testTag(VidoraTestTags.EXPORT_PRIMARY_ACTION)
             )
         }
 
