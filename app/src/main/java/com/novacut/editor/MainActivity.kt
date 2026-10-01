@@ -36,6 +36,7 @@ import androidx.window.layout.FoldingFeature
 import androidx.window.layout.WindowInfoTracker
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.novacut.editor.engine.AppLanguage
 import com.novacut.editor.engine.AppSettings
 import com.novacut.editor.engine.IncomingDocumentIntentParser
@@ -48,9 +49,12 @@ import com.novacut.editor.engine.SettingsRepository
 import com.novacut.editor.engine.db.ProjectDao
 import com.novacut.editor.engine.resolveMediaDisplayName
 import com.novacut.editor.ui.editor.EditorScreen
+import com.novacut.editor.ui.editor.EditorViewModel
 import com.novacut.editor.ui.editor.LocalTabletopPosture
 import com.novacut.editor.ui.projects.ProjectListScreen
+import com.novacut.editor.ui.projects.ProjectListViewModel
 import com.novacut.editor.ui.settings.SettingsScreen
+import com.novacut.editor.ui.settings.SettingsViewModel
 import com.novacut.editor.ui.theme.ClearCutTheme
 import com.novacut.editor.ui.theme.VidoraLanguagePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -110,6 +114,20 @@ class MainActivity : ComponentActivity() {
                     LocalLayoutDirection provides layoutDirection
                 ) {
                 val navController = rememberNavController()
+                // Hilt's Compose integration requires the real Activity context.
+                // LocalContext is intentionally replaced below with a localized ContextImpl
+                // for resource localization, so resolve each screen ViewModel explicitly
+                // while temporarily restoring the Activity context.
+                val projectListViewModel: ProjectListViewModel = CompositionLocalProvider(
+                    LocalContext provides this@MainActivity
+                ) { hiltViewModel() }
+                val settingsViewModel: SettingsViewModel = CompositionLocalProvider(
+                    LocalContext provides this@MainActivity
+                ) { hiltViewModel() }
+                val editorViewModel: EditorViewModel = CompositionLocalProvider(
+                    LocalContext provides this@MainActivity
+                ) { hiltViewModel() }
+
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = currentBackStackEntry?.destination?.route
                 val rootModifier = Modifier
@@ -187,12 +205,14 @@ class MainActivity : ComponentActivity() {
                                 pendingImportItems = pendingIncomingMedia,
                                 onPendingImportHandled = { pendingIncomingMedia = emptyList() },
                                 pendingDocumentItems = pendingIncomingDocuments,
-                                onPendingDocumentImportHandled = { pendingIncomingDocuments = emptyList() }
+                                onPendingDocumentImportHandled = { pendingIncomingDocuments = emptyList() },
+                                viewModel = projectListViewModel
                             )
                         }
                         composable("settings") {
                             SettingsScreen(
                                 onBack = { navController.popBackStack() },
+                                viewModel = settingsViewModel,
                                 onReplayTutorial = {
                                     lifecycleScope.launch {
                                         val projectId = withContext(Dispatchers.IO) {
@@ -218,7 +238,8 @@ class MainActivity : ComponentActivity() {
                             )
                         ) {
                             EditorScreen(
-                                onBack = { navController.popBackStack() }
+                                onBack = { navController.popBackStack() },
+                                viewModel = editorViewModel
                             )
                         }
                         composable(
