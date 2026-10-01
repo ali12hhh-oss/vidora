@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build debug APK
+    name: Build arm64-v8a debug APK
     runs-on: ubuntu-24.04
     timeout-minutes: 30
 
@@ -44,10 +44,10 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      - name: Upload debug APK
+      - name: Upload arm64-v8a debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: vidora-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
+          name: vidora-arm64-v8a-debug-apk
+          path: app/build/outputs/apk/debug/app-arm64-v8a-debug.apk
           if-no-files-found: error
           retention-days: 14
