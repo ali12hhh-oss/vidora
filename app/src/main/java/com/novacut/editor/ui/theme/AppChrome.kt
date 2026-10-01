@@ -23,6 +23,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
@@ -31,6 +33,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Translate
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -45,6 +49,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.novacut.editor.engine.AppLanguage
 
 @Composable
 fun ClearCutScreenBackground(
@@ -469,5 +474,52 @@ fun ClearCutSectionHeader(
             verticalAlignment = Alignment.CenterVertically,
             content = trailing
         )
+    }
+}
+
+
+@Composable
+fun VidoraLanguagePicker(
+    language: AppLanguage,
+    onLanguageSelected: (AppLanguage) -> Unit,
+) {
+    var expanded by remember { androidx.compose.runtime.mutableStateOf(false) }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp, end = 8.dp, start = 8.dp),
+        contentAlignment = Alignment.TopEnd
+    ) {
+        ClearCutChromeIconButton(
+            icon = Icons.Default.Translate,
+            contentDescription = if (language == AppLanguage.ARABIC) "اللغة" else "Language",
+            onClick = { expanded = true },
+            tint = ClearCutAccents.Sky,
+            containerColor = LocalClearCutColors.current.panelHighest.copy(alpha = 0.96f),
+            borderColor = ClearCutAccents.Sky.copy(alpha = 0.35f),
+            shape = RoundedCornerShape(Radius.md)
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            containerColor = LocalClearCutColors.current.panelHighest
+        ) {
+            DropdownMenuItem(
+                text = { Text("العربية") },
+                leadingIcon = { Text("ع") },
+                onClick = {
+                    expanded = false
+                    onLanguageSelected(AppLanguage.ARABIC)
+                }
+            )
+            DropdownMenuItem(
+                text = { Text("English") },
+                leadingIcon = { Text("En") },
+                onClick = {
+                    expanded = false
+                    onLanguageSelected(AppLanguage.ENGLISH)
+                }
+            )
+        }
     }
 }
