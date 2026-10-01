@@ -1,6 +1,8 @@
 package com.novacut.editor
 
 import android.content.Intent
+import android.content.Context
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +20,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.navigation.compose.NavHost
@@ -30,6 +35,7 @@ import androidx.window.layout.FoldingFeature
 import androidx.window.layout.WindowInfoTracker
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.novacut.editor.engine.AppLanguage
 import com.novacut.editor.engine.AppSettings
 import com.novacut.editor.engine.IncomingDocumentIntentParser
 import com.novacut.editor.engine.IncomingDocumentItem
@@ -45,12 +51,14 @@ import com.novacut.editor.ui.editor.LocalTabletopPosture
 import com.novacut.editor.ui.projects.ProjectListScreen
 import com.novacut.editor.ui.settings.SettingsScreen
 import com.novacut.editor.ui.theme.ClearCutTheme
+import com.novacut.editor.ui.theme.VidoraLanguagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -91,6 +99,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             val settings by settingsRepository.settings.collectAsStateWithLifecycle(initialValue = AppSettings())
             ClearCutTheme(appearanceMode = settings.appearanceMode) {
+                val baseContext = LocalContext.current
+                val localizedContext = remember(settings.language) { baseContext.withAppLanguage(settings.language) }
+                val localizedConfiguration = remember(settings.language) { localizedContext.resources.configuration }
+                val layoutDirection = if (settings.language == AppLanguage.ARABIC) LayoutDirection.Rtl else LayoutDirection.Ltr
+                CompositionLocalProvider(
+                    LocalContext provides localizedContext,
+                    LocalConfiguration provides localizedConfiguration,
+                    androidx.compose.ui.unit.LocalLayoutDirection provides layoutDirection
+                ) {
                 val navController = rememberNavController()
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = currentBackStackEntry?.destination?.route
@@ -222,6 +239,11 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
+                }
+                VidoraLanguagePicker(
+                    language = settings.language,
+                    onLanguageSelected = { language -> lifecycleScope.launch { settingsRepository.updateLanguage(language) } }
+                )
             }
         }
     }
@@ -412,4 +434,11 @@ internal fun projectShortcutRoute(action: String?): ProjectShortcutRoute = when 
 internal fun shouldProcessLaunchIntent(isRecreation: Boolean, intentFlags: Int): Boolean {
     if (isRecreation) return false
     return (intentFlags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0
+}
+
+
+private fun Context.withAppLanguage(language: AppLanguage): Context {
+    val configuration = Configuration(resources.configuration)
+    configuration.setLocale(if (language == AppLanguage.ARABIC) Locale("ar") else Locale.ENGLISH)
+    return createConfigurationContext(configuration)
 }
