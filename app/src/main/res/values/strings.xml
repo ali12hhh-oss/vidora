@@ -3636,4 +3636,7 @@
     <string name="ai_requirement_unmet_generic">%1$s is not ready yet, so this tool cannot run.</string>
     <string name="ai_requirement_unknown_tool_title">This tool needs something that is not listed</string>
     <string name="ai_requirement_unknown_tool_body">Vidora has no requirement entry for this tool, so it cannot say what is missing. Open AI Tools to see which models are installed.</string>
+    <string name="language_picker_content_description">Choose language</string>
+    <string name="language_arabic">Arabic</string>
+    <string name="language_english">English</string>
 </resources>
