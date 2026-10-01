@@ -39,7 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.annotation.StringRes
 import com.novacut.editor.R
 import com.novacut.editor.model.*
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.theme.LocalClearCutColors
 import com.novacut.editor.ui.theme.Radius
 import com.novacut.editor.ui.theme.TouchTarget
@@ -513,7 +513,7 @@ private fun BottomTabBarItem(
                 onClick = onClick,
                 role = Role.Tab
             )
-            .testTag(ClearCutTestTags.EDITOR_TOOL_TAB_PREFIX + tab.id)
+            .testTag(VidoraTestTags.EDITOR_TOOL_TAB_PREFIX + tab.id)
             .semantics { contentDescription = itemDescription }
             .defaultMinSize(minWidth = TouchTarget.minimum)
             .height(itemHeight)
@@ -579,7 +579,7 @@ private fun SubMenuGrid(
     ) {
         LazyRow(
             modifier = Modifier
-                .testTag(ClearCutTestTags.EDITOR_TOOL_ACTION_LIST)
+                .testTag(VidoraTestTags.EDITOR_TOOL_ACTION_LIST)
                 .height(62.dp),
             contentPadding = PaddingValues(horizontal = 6.dp, vertical = 5.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -594,7 +594,7 @@ private fun SubMenuGrid(
                         .fillMaxHeight()
                         .clip(RoundedCornerShape(Radius.xs))
                         .clickable(enabled = !isDisabled) { onItemSelected(item.id) }
-                        .testTag(ClearCutTestTags.EDITOR_TOOL_ACTION_PREFIX + item.id)
+                        .testTag(VidoraTestTags.EDITOR_TOOL_ACTION_PREFIX + item.id)
                         .semantics {
                             contentDescription = itemLabel
                             if (isDisabled) disabled()
