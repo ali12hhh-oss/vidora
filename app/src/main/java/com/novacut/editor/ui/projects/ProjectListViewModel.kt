@@ -206,7 +206,14 @@ class ProjectListViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val trashedProjects = projectDao.getTrashedProjects()
+    // A deleted project must never be able to crash the dashboard on the next
+    // emission. The trash query reads rows that the active-project query excludes;
+    // if a legacy/corrupt row cannot be decoded, keep the app usable and log it.
+    val trashedProjects: StateFlow<List<Project>> = projectDao.getTrashedProjects()
+        .catch { error ->
+            AppLog.e(TAG, "Trash query failed; hiding invalid trash rows", error)
+            emit(emptyList())
+        }
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     init {
