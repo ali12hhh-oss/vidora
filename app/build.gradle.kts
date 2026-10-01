@@ -65,10 +65,10 @@ android {
                     keyPassword = keyPass
                 }
             } else {
-                val storePath = resolveSigningSecret("CLEARCUT_STORE_FILE")
-                val storePass = resolveSigningSecret("CLEARCUT_STORE_PASSWORD", "CLEARCUT_KS_PASS")
-                val alias = resolveSigningSecret("CLEARCUT_KEY_ALIAS")
-                val keyPass = resolveSigningSecret("CLEARCUT_KEY_PASSWORD", "CLEARCUT_KEY_PASS")
+                val storePath = resolveSigningSecret("VIDORA_STORE_FILE")
+                val storePass = resolveSigningSecret("VIDORA_STORE_PASSWORD", "VIDORA_KS_PASS")
+                val alias = resolveSigningSecret("VIDORA_KEY_ALIAS")
+                val keyPass = resolveSigningSecret("VIDORA_KEY_PASSWORD", "VIDORA_KEY_PASS")
                 if (!storePath.isNullOrBlank() && !storePass.isNullOrBlank() && !alias.isNullOrBlank() && !keyPass.isNullOrBlank()) {
                     storeFile = rootProject.file(storePath)
                     storePassword = storePass
@@ -91,7 +91,7 @@ android {
                 "proguard-rules.pro"
             )
             // Never fall back to the debug key. Android refuses an in-place update
-            // when the signing certificate changes, and ClearCut's projects live in
+            // when the signing certificate changes, and Vidora's projects live in
             // app-private storage -- signing a release with a different key strands
             // every installed user with no migration path. The release build fails
             // loudly instead, and `verifyReleaseSigningIdentity` proves the resolved
@@ -638,7 +638,7 @@ val verifyResolvedAdvisoryFloors by tasks.registering {
   "metadata": {
     "component": {
       "type": "application",
-      "name": "clearcut",
+      "name": "vidora",
       "version": "${android.defaultConfig.versionName}"
     }
   },
@@ -690,8 +690,8 @@ val verifyReleaseSigningIdentity = tasks.register("verifyReleaseSigningIdentity"
         if (storeFile == null || !storeFile.exists()) {
             throw GradleException(
                 "No release keystore resolved. Create keystore.properties (gitignored) with " +
-                    "storeFile/storePassword/keyAlias/keyPassword, or export CLEARCUT_STORE_FILE, " +
-                    "CLEARCUT_STORE_PASSWORD, CLEARCUT_KEY_ALIAS and CLEARCUT_KEY_PASSWORD. " +
+                    "storeFile/storePassword/keyAlias/keyPassword, or export VIDORA_STORE_FILE, " +
+                    "VIDORA_STORE_PASSWORD, VIDORA_KEY_ALIAS and VIDORA_KEY_PASSWORD. " +
                     "The release build no longer falls back to the debug key: a release signed " +
                     "with a different certificate cannot update any existing install."
             )
@@ -712,7 +712,7 @@ val verifyReleaseSigningIdentity = tasks.register("verifyReleaseSigningIdentity"
                     "  expected: $expected (every published release since v3.74.108)\n" +
                     "  resolved: $actual (alias '$alias' in ${storeFile.name})\n" +
                     "Signing with this key would strand every installed user, because Android " +
-                    "refuses an in-place update across a certificate change and ClearCut's " +
+                    "refuses an in-place update across a certificate change and Vidora's " +
                     "projects live in app-private storage. Point keystore.properties at the " +
                     "correct keystore, or -- if the break is deliberate -- update " +
                     "release-signing-identity.json and document the clean-install migration."
@@ -921,7 +921,7 @@ afterEvaluate {
         include("**/JvmAccessibilityFailureContractTest.class")
         maxParallelForks = 1
         outputs.upToDateWhen { false }
-        systemProperty("clearcut.visual.capture", "true")
+        systemProperty("vidora.visual.capture", "true")
         systemProperty("roborazzi.test.$roborazziProperty", "true")
         systemProperty("roborazzi.output.dir", visualGoldenDirectory.absolutePath)
         systemProperty("roborazzi.compare.output.dir", visualComparisonDirectory.get().asFile.absolutePath)

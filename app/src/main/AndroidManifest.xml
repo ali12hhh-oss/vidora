@@ -19,7 +19,7 @@
     <uses-feature android:glEsVersion="0x00030000" android:required="true" />
 
     <application
-        android:name=".ClearCutApp"
+        android:name=".VidoraApp"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -31,7 +31,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ClearCut"
+        android:theme="@style/Theme.Vidora"
         android:usesCleartextTraffic="false"
         tools:targetApi="33">
 
@@ -80,7 +80,7 @@
                 <data android:mimeType="image/*" />
                 <data android:mimeType="audio/*" />
             </intent-filter>
-            <!-- Non-media document receiver for ClearCut-owned plugin,
+            <!-- Non-media document receiver for Vidora-owned plugin,
                  template, LUT, archive, timeline-interchange, and caption files.
                  Kept to explicit MIME families plus content:// VIEW grants;
                  MainActivity still validates extension, size, and parser

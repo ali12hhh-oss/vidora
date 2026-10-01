@@ -1,8 +1,8 @@
 {
   "_comment": [
-    "The signing identity every published ClearCut release must carry.",
+    "The signing identity every published Vidora release must carry.",
     "Android refuses an in-place update when the signing certificate changes, and",
-    "ClearCut's projects live in app-private storage, so a fingerprint change strands",
+    "Vidora's projects live in app-private storage, so a fingerprint change strands",
     "every installed user. The release build fails when the resolved signing key does",
     "not produce this fingerprint, rather than silently falling back to the debug key.",
     "This is a self-signed key: no CA, no EV certificate, no Play App Signing, no",

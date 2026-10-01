@@ -20,6 +20,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ClearCut"
+rootProject.name = "Vidora"
 include(":app")
 include(":baselineprofile")
