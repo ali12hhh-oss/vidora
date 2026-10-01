@@ -33,7 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.novacut.editor.R
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.theme.Motion
 import com.novacut.editor.ui.theme.ClearCutPrimaryButton
 import com.novacut.editor.ui.theme.ClearCutSecondaryButton
@@ -86,7 +86,7 @@ fun FirstRunTutorial(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .testTag(ClearCutTestTags.TUTORIAL_SCREEN)
+            .testTag(VidoraTestTags.TUTORIAL_SCREEN)
     ) {
         // Scrim as a SIBLING behind the interactive content, not a pointer
         // handler on the shared parent (issue #49: Next/Skip reported dead on
@@ -124,7 +124,7 @@ fun FirstRunTutorial(
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(Spacing.lg)
-                .testTag(ClearCutTestTags.TUTORIAL_SKIP)
+                .testTag(VidoraTestTags.TUTORIAL_SKIP)
                 .defaultMinSize(minHeight = TouchTarget.minimum)
                 .clickable(role = Role.Button, onClick = onComplete)
         ) {
