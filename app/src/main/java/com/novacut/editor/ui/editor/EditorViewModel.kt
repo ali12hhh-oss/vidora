@@ -806,7 +806,7 @@ class EditorViewModel @Inject constructor(
         },
         audioEngine = audioEngine,
         exportIncidentStore = exportIncidentStore,
-        appVersion = com.novacut.editor.ClearCutApp.VERSION,
+        appVersion = com.novacut.editor.VidoraApp.VERSION,
         ffmpegEngine = ffmpegEngine,
         includeDiagnosticRawErrorText = { latestSettings?.includeDiagnosticRawErrorText == true },
         projectFingerprint = ::currentProjectFingerprint,
