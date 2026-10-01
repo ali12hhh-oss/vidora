@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.novacut.editor.R
 import com.novacut.editor.engine.UserTemplate
 import com.novacut.editor.model.*
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.theme.ClearCutAccents
 import com.novacut.editor.ui.theme.LocalClearCutColors
 import com.novacut.editor.ui.theme.ClearCutChromeIconButton
@@ -134,7 +134,7 @@ fun ProjectTemplateSheet(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight(0.92f)
-            .testTag(ClearCutTestTags.TEMPLATE_SHEET)
+            .testTag(VidoraTestTags.TEMPLATE_SHEET)
             .navigationBarsPadding()
             .verticalScroll(rememberScrollState())
             .background(LocalClearCutColors.current.panel, RoundedCornerShape(topStart = Radius.xxl, topEnd = Radius.xxl))
@@ -271,7 +271,7 @@ fun ProjectTemplateSheet(
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 168.dp),
             modifier = Modifier
-                .testTag(ClearCutTestTags.TEMPLATE_GRID)
+                .testTag(VidoraTestTags.TEMPLATE_GRID)
                 .fillMaxWidth()
                 .heightIn(max = if (userTemplates.isEmpty()) 460.dp else 320.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -449,7 +449,7 @@ private fun ProjectTemplateCard(
             .background(LocalClearCutColors.current.panelHighest)
             .border(1.dp, LocalClearCutColors.current.cardStrokeStrong, RoundedCornerShape(Radius.xl))
             .then(
-                if (template.id == "blank") Modifier.testTag(ClearCutTestTags.TEMPLATE_BLANK) else Modifier
+                if (template.id == "blank") Modifier.testTag(VidoraTestTags.TEMPLATE_BLANK) else Modifier
             )
             .clickable(role = Role.Button, onClick = { onClick(templateName) })
             .semantics { contentDescription = templateDescription }
