@@ -14,7 +14,7 @@ internal data class CompositionBuildRequest(
     val targetHeight: Int,
     val hasMultipleVideoSequences: Boolean = false,
     val preserveHdr: Boolean = false,
-    val compositorLayers: List<ClearCutCompositorLayer> = emptyList(),
+    val compositorLayers: List<VidoraCompositorLayer> = emptyList(),
     val allowAudioTransmux: Boolean = true,
 )
 
@@ -31,7 +31,7 @@ internal object CompositionBuilder {
             )
         if (request.hasMultipleVideoSequences) {
             builder.setVideoCompositorSettings(
-                ClearCutVideoCompositorSettings(
+                VidoraVideoCompositorSettings(
                     outputWidth = request.targetWidth,
                     outputHeight = request.targetHeight,
                     layers = request.compositorLayers,
