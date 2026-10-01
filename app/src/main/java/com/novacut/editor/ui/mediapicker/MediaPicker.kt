@@ -49,7 +49,7 @@ import com.novacut.editor.engine.insufficientSpaceFor
 import com.novacut.editor.engine.pendingCameraCaptureDir
 import com.novacut.editor.engine.querySourceSize
 import com.novacut.editor.engine.resolveManagedMediaExtension
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.editor.PremiumEditorPanel
 import com.novacut.editor.ui.editor.PremiumPanelCard
 import com.novacut.editor.ui.editor.PremiumPanelPill
@@ -634,7 +634,7 @@ fun MediaPickerSheet(
             cancelActiveOperation()
             onClose()
         },
-        closeButtonTestTag = ClearCutTestTags.MEDIA_PICKER_CLOSE,
+        closeButtonTestTag = VidoraTestTags.MEDIA_PICKER_CLOSE,
         modifier = modifier
             .heightIn(min = 240.dp, max = 560.dp)
             .dragAndDropTarget(
