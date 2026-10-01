@@ -63,7 +63,7 @@ import com.novacut.editor.engine.ThumbnailCachePolicy
 import com.novacut.editor.engine.segmentation.SegmentationModelState
 import com.novacut.editor.engine.whisper.WhisperModelState
 import com.novacut.editor.model.*
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.theme.ClearCutAccents
 import com.novacut.editor.ui.theme.ClearCutChromeIconButton
 import com.novacut.editor.ui.theme.ClearCutDialogIcon
@@ -148,7 +148,7 @@ fun SettingsScreen(
     ClearCutScreenBackground(
         modifier = modifier
             .fillMaxSize()
-            .testTag(ClearCutTestTags.SETTINGS_SCREEN)
+            .testTag(VidoraTestTags.SETTINGS_SCREEN)
     ) {
         Column(
             modifier = Modifier
@@ -606,7 +606,7 @@ fun SettingsScreen(
                 label = stringResource(R.string.settings_replay_tutorial),
                 description = stringResource(R.string.settings_replay_tutorial_row_description),
                 onClick = onReplayTutorial,
-                modifier = Modifier.testTag(ClearCutTestTags.SETTINGS_REPLAY_TUTORIAL)
+                modifier = Modifier.testTag(VidoraTestTags.SETTINGS_REPLAY_TUTORIAL)
             ) {
                 ClearCutMetricPill(
                     text = stringResource(R.string.settings_replay_tutorial_action),
@@ -663,7 +663,7 @@ fun SettingsScreen(
                 description = stringResource(R.string.settings_privacy_open_description),
                 actionLabel = stringResource(R.string.settings_privacy_open_action),
                 onClick = { showPrivacyDashboard = true },
-                modifier = Modifier.testTag(ClearCutTestTags.SETTINGS_PRIVACY_OPEN)
+                modifier = Modifier.testTag(VidoraTestTags.SETTINGS_PRIVACY_OPEN)
             )
         }
 
@@ -765,7 +765,7 @@ fun SettingsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 480.dp, max = 640.dp)
-                        .testTag(ClearCutTestTags.SETTINGS_PRIVACY_DASHBOARD)
+                        .testTag(VidoraTestTags.SETTINGS_PRIVACY_DASHBOARD)
                 ) {
                     Column {
                         Box(
@@ -811,7 +811,7 @@ fun SettingsScreen(
                             ClearCutSecondaryButton(
                                 text = stringResource(R.string.settings_privacy_close),
                                 onClick = { showPrivacyDashboard = false },
-                                modifier = Modifier.testTag(ClearCutTestTags.SETTINGS_PRIVACY_CLOSE)
+                                modifier = Modifier.testTag(VidoraTestTags.SETTINGS_PRIVACY_CLOSE)
                             )
                         }
                     }
@@ -905,7 +905,7 @@ private fun SettingsHero(
                 tint = LocalClearCutColors.current.text,
                 containerColor = Color.Transparent,
                 borderColor = Color.Transparent,
-                modifier = Modifier.testTag(ClearCutTestTags.SETTINGS_BACK)
+                modifier = Modifier.testTag(VidoraTestTags.SETTINGS_BACK)
             )
             Spacer(Modifier.width(Spacing.sm))
             Column(modifier = Modifier.weight(1f)) {
