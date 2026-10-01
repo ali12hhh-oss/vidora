@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.clearcut.baselineprofile"
+    namespace = "com.vidora.baselineprofile"
     compileSdk = 37
     targetProjectPath = ":app"
 
