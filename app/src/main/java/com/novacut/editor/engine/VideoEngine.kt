@@ -200,7 +200,7 @@ class VideoEngine @Inject constructor(
     private data class VisualTrackSequence(
         val sequence: EditedMediaItemSequence,
         val hasEmbeddedAudio: Boolean,
-        val compositorLayer: ClearCutCompositorLayer
+        val compositorLayer: VidoraCompositorLayer
     )
 
     private data class LottieBackendPlan(
@@ -401,7 +401,7 @@ class VideoEngine @Inject constructor(
                     )
                     .setPrioritizeTimeOverSizeThresholds(true)
                     .build()
-                val previewAudioAttributes = ClearCutAudioFocusPolicy.buildPreviewAttributes()
+                val previewAudioAttributes = AudioFocusPolicy.buildPreviewAttributes()
                 logAndroid15LoudnessIntegration("Preview")
                 player = CompositionPlayer.Builder(context)
                     .setLoadControl(loadControl)
@@ -1780,7 +1780,7 @@ class VideoEngine @Inject constructor(
                     degradationLedger = degradationLedger,
                 ),
                 hasEmbeddedAudio = hasEmbeddedAudio,
-                compositorLayer = ClearCutCompositorLayer(
+                compositorLayer = VidoraCompositorLayer(
                     inputId = inputId,
                     trackId = track.id,
                     trackIndex = track.index,
