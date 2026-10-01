@@ -1,18 +1,22 @@
 package com.novacut.editor
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import java.io.File
 
 /**
  * Crash-only diagnostic screen.
  *
- * Shows the crash in short, copy-friendly sections instead of one huge stack trace.
+ * Shows the crash in short, copy-friendly sections and provides copy/share actions.
  */
 class CrashDiagnosticActivity : Activity() {
 
@@ -69,8 +73,35 @@ class CrashDiagnosticActivity : Activity() {
             setPadding(16, 16, 16, 16)
         }
 
+        val actions = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+        }
+
+        val copy = Button(this).apply {
+            text = "نسخ السبب"
+            setOnClickListener {
+                val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+                clipboard.setPrimaryClip(ClipData.newPlainText("Vidora crash diagnostic", importantLines))
+                Toast.makeText(this@CrashDiagnosticActivity, "تم نسخ سبب الكراش", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val share = Button(this).apply {
+            text = "مشاركة الملف"
+            setOnClickListener {
+                if (crashFile.isNullOrBlank()) {
+                    Toast.makeText(this@CrashDiagnosticActivity, "لا يوجد ملف تشخيص", Toast.LENGTH_SHORT).show()
+                } else {
+                    shareCrashFile(File(crashFile))
+                }
+            }
+        }
+
+        actions.addView(copy, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+        actions.addView(share, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+
         val hint = TextView(this).apply {
-            text = "إذا كان الخطأ طويلًا، أرسل الجزء الظاهر هنا فقط. لا تحتاج إلى نسخ الملف الكامل."
+            text = "يمكنك نسخ السبب المختصر أو مشاركة ملف التشخيص الكامل."
             textSize = 13f
             setPadding(0, 12, 0, 20)
         }
@@ -104,6 +135,7 @@ class CrashDiagnosticActivity : Activity() {
                 1f,
             ),
         )
+        root.addView(actions)
         root.addView(hint)
         root.addView(detailsTitle)
         root.addView(
@@ -115,6 +147,32 @@ class CrashDiagnosticActivity : Activity() {
         )
         root.addView(close)
         setContentView(root)
+    }
+
+    private fun shareCrashFile(file: File) {
+        if (!file.exists()) {
+            Toast.makeText(this, "ملف التشخيص غير موجود", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val uri = try {
+            androidx.core.content.FileProvider.getUriForFile(
+                this,
+                applicationContext.packageName + ".fileprovider",
+                file,
+            )
+        } catch (e: Exception) {
+            Toast.makeText(this, "تعذر تجهيز ملف المشاركة: " + e.message, Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            putExtra(Intent.EXTRA_TEXT, "Vidora crash diagnostic")
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        startActivity(Intent.createChooser(intent, "مشاركة ملف التشخيص"))
     }
 
     private fun extractImportantLines(
