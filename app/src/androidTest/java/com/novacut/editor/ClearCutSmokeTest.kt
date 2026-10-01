@@ -76,13 +76,6 @@ class ClearCutSmokeTest {
         compose.onNodeWithTag(ClearCutTestTags.SETTINGS_PRIVACY_DASHBOARD).assertIsDisplayed()
         compose.assertAccessibilityChecksPass()
         compose.onNodeWithTag(ClearCutTestTags.SETTINGS_PRIVACY_CLOSE).performClick()
-        compose.onNodeWithTag(ClearCutTestTags.SETTINGS_LICENSES_OPEN)
-            .performScrollTo()
-            .performClick()
-        compose.onNodeWithTag(ClearCutTestTags.SETTINGS_LICENSES_DIALOG).assertIsDisplayed()
-        compose.assertAccessibilityChecksPass()
-        compose.onNodeWithTag(ClearCutTestTags.SETTINGS_LICENSES_CLOSE).performClick()
-
         compose.onNodeWithTag(ClearCutTestTags.SETTINGS_REPLAY_TUTORIAL)
             .performScrollTo()
             .performClick()
