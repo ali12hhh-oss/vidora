@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.novacut.editor.R
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 
 /**
  * Breadcrumb chip rendered above the timeline whenever the editor is
@@ -56,7 +56,7 @@ fun CompoundNavBreadcrumb(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 6.dp)
-            .testTag(ClearCutTestTags.EDITOR_COMPOUND_BREADCRUMB)
+            .testTag(VidoraTestTags.EDITOR_COMPOUND_BREADCRUMB)
             .clip(RoundedCornerShape(12.dp))
             .border(BorderStroke(1.dp, ClearCutAccents.Mauve.copy(alpha = 0.55f)), RoundedCornerShape(12.dp))
             .background(ClearCutAccents.Mauve.copy(alpha = 0.14f))
