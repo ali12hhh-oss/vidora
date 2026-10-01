@@ -10,7 +10,7 @@ import com.novacut.editor.engine.AppLog
 import androidx.core.app.NotificationCompat
 import androidx.core.content.FileProvider
 import com.novacut.editor.MainActivity
-import com.novacut.editor.ClearCutApp
+import com.novacut.editor.VidoraApp
 import com.novacut.editor.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -171,7 +171,7 @@ class ExportService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val notification = NotificationCompat.Builder(this, ClearCutApp.CHANNEL_EXPORT)
+        val notification = NotificationCompat.Builder(this, VidoraApp.CHANNEL_EXPORT)
             .setSmallIcon(android.R.drawable.ic_menu_save)
             .setContentTitle(getString(R.string.notif_export_complete_title))
             .setContentText(getString(R.string.notif_export_complete_text))
@@ -216,7 +216,7 @@ class ExportService : Service() {
         val nm = getSystemService(NotificationManager::class.java)
         nm?.cancel(NOTIFICATION_ID)
 
-        val notification = NotificationCompat.Builder(this, ClearCutApp.CHANNEL_EXPORT)
+        val notification = NotificationCompat.Builder(this, VidoraApp.CHANNEL_EXPORT)
             .setSmallIcon(android.R.drawable.ic_dialog_alert)
             .setContentTitle(getString(R.string.notif_export_failed_title))
             .setContentText(message)
@@ -428,7 +428,7 @@ class ExportService : Service() {
             ThermalHeadroomPolicy.UserMessageKey.NONE -> return
         }
         val text = getString(textRes)
-        val notification = NotificationCompat.Builder(this, ClearCutApp.CHANNEL_EXPORT)
+        val notification = NotificationCompat.Builder(this, VidoraApp.CHANNEL_EXPORT)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setContentTitle(getString(titleRes))
             .setContentText(text)
@@ -443,7 +443,7 @@ class ExportService : Service() {
     private fun notifyThermalCancellation(notificationManager: NotificationManager?) {
         notificationManager ?: return
         val text = getString(R.string.notif_export_thermal_stop_text)
-        val notification = NotificationCompat.Builder(this, ClearCutApp.CHANNEL_EXPORT)
+        val notification = NotificationCompat.Builder(this, VidoraApp.CHANNEL_EXPORT)
             .setSmallIcon(android.R.drawable.ic_dialog_alert)
             .setContentTitle(getString(R.string.notif_export_thermal_stop_title))
             .setContentText(text)
@@ -478,7 +478,7 @@ class ExportService : Service() {
             getString(R.string.notif_export_progress_with_thermal, progressText, thermalText)
         }
 
-        return NotificationCompat.Builder(this, ClearCutApp.CHANNEL_EXPORT)
+        return NotificationCompat.Builder(this, VidoraApp.CHANNEL_EXPORT)
             .setSmallIcon(android.R.drawable.ic_menu_save)
             .setContentTitle(getString(R.string.notif_export_title))
             .setContentText(contentText)
