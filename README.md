@@ -19,7 +19,7 @@ The repository also contains automated Android build verification under `.github
 
 ## Licensing
 
-Vidora contains third-party open-source components. Their applicable license texts, notices, and source-offer information are retained in the repository and, where applicable, exposed by the application.
+Vidora contains third-party open-source components. Their applicable license texts, notices, source-offer information, and required attribution materials are retained with the project and packaged resources where applicable. Vidora does not expose a general open-source license browser in its normal user interface.
 
 See [LICENSE](LICENSE) and [NOTICE](NOTICE) before redistributing the project or application.
 
