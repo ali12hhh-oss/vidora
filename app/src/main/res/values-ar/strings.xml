@@ -2487,4 +2487,5 @@
     <string name="ai_requirement_unmet_generic">متطلبات الأداة غير مكتملة</string>
     <string name="ai_requirement_unknown_tool_title">أداة ذكاء اصطناعي غير معروفة</string>
     <string name="ai_requirement_unknown_tool_body">تعذر تحديد متطلبات هذه الأداة.</string>
+    <string name="cd_add_marker">إضافة علامة</string>
 </resources>
