@@ -233,6 +233,9 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
+                            val editorViewModel: EditorViewModel = CompositionLocalProvider(
+                                LocalContext provides this@MainActivity
+                            ) { hiltViewModel() }
                             EditorScreen(
                                 onBack = { navController.popBackStack() },
                                 viewModel = editorViewModel
