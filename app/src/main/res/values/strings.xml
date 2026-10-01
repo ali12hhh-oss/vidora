@@ -405,6 +405,7 @@
     <string name="audio_beat_detection_failed">Beat detection failed. Try a clip with clearer audio.</string>
     <string name="audio_measuring_loudness">Measuring loudness…</string>
     <string name="audio_clip_deleted_during_analysis">Clip was deleted during analysis.</string>
+    <string name="audio_normalize">Normalize audio</string>
     <string name="audio_normalized_clip">Normalized: %1$.1f to %2$.0f LUFS.</string>
     <string name="audio_normalization_failed">Normalization failed. Try a clip with readable audio.</string>
 
