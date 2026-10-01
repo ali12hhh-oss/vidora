@@ -318,7 +318,7 @@ class ModelDownloadManager @Inject constructor(
         private const val BUFFER_SIZE = 8192
         private const val MAX_REDIRECTS = 5
         private const val STORAGE_HEADROOM_BYTES = 16L * 1024L * 1024L
-        private val USER_AGENT = "ClearCut/${com.novacut.editor.ClearCutApp.VERSION.removePrefix("v")}"
+        private val USER_AGENT = "ClearCut/${com.novacut.editor.VidoraApp.VERSION.removePrefix("v")}"
 
         internal fun estimateTotalBytes(files: List<ModelFile>): Long {
             return files.fold(0L) { total, request ->
