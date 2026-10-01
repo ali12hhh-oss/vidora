@@ -40,6 +40,12 @@
             android:value="true" />
 
         <activity
+            android:name=".CrashDiagnosticActivity"
+            android:exported="false"
+            android:process=":crashdiagnostic"
+            android:theme="@style/Theme.Vidora" />
+
+        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden|density|uiMode"
             android:exported="true"
