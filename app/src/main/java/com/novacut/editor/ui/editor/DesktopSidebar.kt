@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.novacut.editor.R
 import com.novacut.editor.model.TrackType
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.theme.Radius
 import com.novacut.editor.ui.theme.Spacing
 import com.novacut.editor.ui.theme.TouchTarget
@@ -64,7 +64,7 @@ fun DesktopSidebar(
         modifier = modifier
             .fillMaxHeight()
             .width(if (compact) 84.dp else 260.dp)
-            .testTag(ClearCutTestTags.EDITOR_DESKTOP_SIDEBAR)
+            .testTag(VidoraTestTags.EDITOR_DESKTOP_SIDEBAR)
             .background(semanticColors.backgroundMid)
             .padding(horizontal = if (compact) 8.dp else Spacing.md, vertical = 14.dp),
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
