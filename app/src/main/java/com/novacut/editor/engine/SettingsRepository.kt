@@ -60,6 +60,7 @@ data class AppSettings(
      */
     val includeDiagnosticRawErrorText: Boolean = false,
     val appearanceMode: AppearanceMode = AppearanceMode.DARK,
+    val language: AppLanguage = AppLanguage.ENGLISH,
     // Opt-in passive update check for sideload / GitHub-release installs. Off by
     // default so no network request is ever made without explicit consent.
     val updateCheckEnabled: Boolean = false,
@@ -74,6 +75,8 @@ data class AppSettings(
 )
 
 enum class DesktopOverride { AUTO, FORCE_ON, FORCE_OFF }
+
+enum class AppLanguage { ENGLISH, ARABIC }
 
 /**
  * The appearance schemes ClearCut actually implements.
@@ -114,6 +117,7 @@ internal object SettingsPreferenceKeys {
     val INCLUDE_DIAGNOSTIC_TIMELINE_SHAPE = booleanPreferencesKey("include_diagnostic_timeline_shape")
     val INCLUDE_DIAGNOSTIC_RAW_ERROR_TEXT = booleanPreferencesKey("include_diagnostic_raw_error_text")
     val APPEARANCE_MODE = stringPreferencesKey("appearance_mode")
+    val LANGUAGE = stringPreferencesKey("language")
     val UPDATE_CHECK_ENABLED = booleanPreferencesKey("update_check_enabled")
     val MEDIA_PIPE_CONSENT_VERSION = intPreferencesKey("mediapipe_consent_version")
 }
@@ -152,6 +156,7 @@ internal fun mapPreferencesToAppSettings(prefs: Preferences): AppSettings = AppS
     includeDiagnosticRawErrorText = prefs[SettingsPreferenceKeys.INCLUDE_DIAGNOSTIC_RAW_ERROR_TEXT] ?: false,
     appearanceMode = prefs[SettingsPreferenceKeys.APPEARANCE_MODE]?.enumOrNull<AppearanceMode>()
         ?: AppearanceMode.DARK,
+    language = prefs[SettingsPreferenceKeys.LANGUAGE]?.enumOrNull<AppLanguage>() ?: AppLanguage.ENGLISH,
     updateCheckEnabled = prefs[SettingsPreferenceKeys.UPDATE_CHECK_ENABLED] ?: false,
     mediaPipeConsentVersion = prefs[SettingsPreferenceKeys.MEDIA_PIPE_CONSENT_VERSION]?.takeIf { it >= 0 } ?: 0,
 )
@@ -340,6 +345,10 @@ class SettingsRepository internal constructor(
 
     suspend fun updateAppearanceMode(value: AppearanceMode) {
         dataStore.edit { it[SettingsPreferenceKeys.APPEARANCE_MODE] = value.name }
+    }
+
+    suspend fun updateLanguage(value: AppLanguage) {
+        dataStore.edit { it[SettingsPreferenceKeys.LANGUAGE] = value.name }
     }
 
     suspend fun updateUpdateCheckEnabled(value: Boolean) {
