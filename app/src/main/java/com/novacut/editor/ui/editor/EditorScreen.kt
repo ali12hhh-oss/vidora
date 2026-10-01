@@ -58,7 +58,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import com.novacut.editor.engine.ExportState
 import com.novacut.editor.model.*
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.theme.ClearCutDialogIcon
 import com.novacut.editor.ui.theme.ClearCutChromeIconButton
 import com.novacut.editor.ui.theme.ClearCutPrimaryButton
@@ -526,7 +526,7 @@ fun EditorScreen(
     ) {
     Box(modifier = Modifier
         .fillMaxSize()
-        .testTag(ClearCutTestTags.EDITOR_SCREEN)
+        .testTag(VidoraTestTags.EDITOR_SCREEN)
         .background(semanticColors.surfaceBase)
         .graphicsLayer {
             val direction = if (predictiveBackSwipeEdge == BackEventCompat.EDGE_RIGHT) {
@@ -866,7 +866,7 @@ fun EditorScreen(
                                     .clip(RoundedCornerShape(Radius.md))
                                     .background(ClearCutAccents.Sky)
                                     .clickable(onClick = viewModel::showMediaPicker)
-                                    .testTag(ClearCutTestTags.EDITOR_EMPTY_ADD_MEDIA)
+                                    .testTag(VidoraTestTags.EDITOR_EMPTY_ADD_MEDIA)
                                     .semantics { contentDescription = emptyAddMediaLabel },
                                 horizontalArrangement = Arrangement.Center,
                                 verticalAlignment = Alignment.CenterVertically
@@ -1599,7 +1599,7 @@ private fun EditorTopBar(
                         onClick = onBack,
                         modifier = Modifier
                             .size(if (layoutMode == LayoutMode.DESKTOP) 68.dp else if (isCompactBar) 60.dp else 68.dp)
-                            .testTag(ClearCutTestTags.EDITOR_BACK)
+                            .testTag(VidoraTestTags.EDITOR_BACK)
                     ) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
@@ -1691,7 +1691,7 @@ private fun EditorTopBar(
                                 enabled = canUndo,
                                 modifier = Modifier
                                     .size(toolbarTouchTarget)
-                                    .testTag(ClearCutTestTags.EDITOR_UNDO)
+                                    .testTag(VidoraTestTags.EDITOR_UNDO)
                             ) {
                                 Icon(
                                     Icons.AutoMirrored.Filled.Undo,
@@ -1705,7 +1705,7 @@ private fun EditorTopBar(
                                 enabled = canRedo,
                                 modifier = Modifier
                                     .size(toolbarTouchTarget)
-                                    .testTag(ClearCutTestTags.EDITOR_REDO)
+                                    .testTag(VidoraTestTags.EDITOR_REDO)
                             ) {
                                 Icon(
                                     Icons.AutoMirrored.Filled.Redo,
@@ -1986,7 +1986,7 @@ private fun EditorTopBar(
                     contentPadding = PaddingValues(horizontal = if (isCompactBar) 12.dp else 14.dp, vertical = 0.dp),
                     modifier = Modifier
                         .height(if (layoutMode == LayoutMode.DESKTOP) 68.dp else if (isCompactBar) 60.dp else TouchTarget.minimum)
-                        .testTag(ClearCutTestTags.EDITOR_EXPORT)
+                        .testTag(VidoraTestTags.EDITOR_EXPORT)
                 ) {
                     Icon(
                         Icons.Default.Upload,
