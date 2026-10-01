@@ -668,7 +668,7 @@ private fun ProjectHomeHero(
             )
             Spacer(Modifier.width(Spacing.sm))
             Text(
-                text = stringResource(R.string.projects_app_title),
+                text = stringResource(R.string.app_name),
                 color = LocalClearCutColors.current.text,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
