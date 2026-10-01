@@ -124,10 +124,6 @@ class MainActivity : ComponentActivity() {
                 val settingsViewModel: SettingsViewModel = CompositionLocalProvider(
                     LocalContext provides this@MainActivity
                 ) { hiltViewModel() }
-                val editorViewModel: EditorViewModel = CompositionLocalProvider(
-                    LocalContext provides this@MainActivity
-                ) { hiltViewModel() }
-
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = currentBackStackEntry?.destination?.route
                 val rootModifier = Modifier
@@ -255,8 +251,12 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
+                            val editorViewModel: EditorViewModel = CompositionLocalProvider(
+                                LocalContext provides this@MainActivity
+                            ) { hiltViewModel() }
                             EditorScreen(
-                                onBack = { navController.popBackStack() }
+                                onBack = { navController.popBackStack() },
+                                viewModel = editorViewModel
                             )
                         }
                     }
