@@ -1,4 +1,4 @@
-package com.clearcut.baselineprofile
+package com.vidora.baselineprofile
 
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -14,7 +14,7 @@ class BaselineProfileGenerator {
 
     @Test
     fun generateBaselineProfile() {
-        baselineProfileRule.collect(packageName = CLEARCUT_PACKAGE) {
+        baselineProfileRule.collect(packageName = VIDORA_PACKAGE) {
             openProjectGallery()
             openBlankEditor()
             openExportSheet()
