@@ -24,7 +24,7 @@ import com.novacut.editor.model.Effect
 import com.novacut.editor.model.EffectType
 import com.novacut.editor.model.TrackType
 import com.novacut.editor.model.Transition
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.export.ExportSheet
 import com.novacut.editor.ui.export.ExportSheetPresentation
 import com.novacut.editor.ui.mediapicker.MediaPickerSheet
@@ -69,7 +69,7 @@ fun BoxScope.EditorPrimaryPanelHost(
                 )
             },
             onClose = viewModel::hideMediaPicker,
-            modifier = Modifier.testTag(ClearCutTestTags.MEDIA_PICKER_SHEET)
+            modifier = Modifier.testTag(VidoraTestTags.MEDIA_PICKER_SHEET)
         )
     }
 
