@@ -24,9 +24,13 @@ import kotlin.system.exitProcess
 @Singleton
 class CrashRecordStore private constructor(
     private val recordsDir: File,
+    private val appContext: Context?,
 ) {
     @Inject
-    constructor(@ApplicationContext context: Context) : this(defaultRecordsDir(context))
+    constructor(@ApplicationContext context: Context) : this(
+        defaultRecordsDir(context),
+        context.applicationContext,
+    )
 
     fun installGlobalHandler(appVersion: String) {
         val previous = Thread.getDefaultUncaughtExceptionHandler()
@@ -78,6 +82,33 @@ class CrashRecordStore private constructor(
             .put("recordCount", records.length())
             .put("records", records)
             .toString(2)
+    }
+
+    private fun launchDiagnosticActivity(crashFile: File?, throwable: Throwable) {
+        val context = appContext ?: return
+        val intent = android.content.Intent(
+            context,
+            com.novacut.editor.CrashDiagnosticActivity::class.java,
+        ).apply {
+            addFlags(
+                android.content.Intent.FLAG_ACTIVITY_NEW_TASK or
+                    android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP,
+            )
+            putExtra(
+                com.novacut.editor.CrashDiagnosticActivity.EXTRA_CRASH_FILE,
+                crashFile?.absolutePath,
+            )
+            putExtra(
+                com.novacut.editor.CrashDiagnosticActivity.EXTRA_THROWABLE_CLASS,
+                throwable.javaClass.name,
+            )
+            putExtra(
+                com.novacut.editor.CrashDiagnosticActivity.EXTRA_THROWABLE_MESSAGE,
+                throwable.message ?: "",
+            )
+        }
+        context.startActivity(intent)
     }
 
     fun pruneOldRecords(retainCount: Int = DEFAULT_RETAIN_COUNT) {
@@ -172,9 +203,18 @@ class CrashRecordStore private constructor(
         private val appVersion: String,
     ) : Thread.UncaughtExceptionHandler {
         override fun uncaughtException(thread: Thread, throwable: Throwable) {
-            runCatching {
+            val crashFile = runCatching {
                 store.recordUncaughtException(thread, throwable, appVersion)
+            }.getOrNull()
+
+            // The crashing process may be on the main thread, so a normal
+            // in-process dialog cannot reliably render. Launch the diagnostic
+            // screen in a dedicated process before handing control back to the
+            // platform crash handler.
+            runCatching {
+                store.launchDiagnosticActivity(crashFile, throwable)
             }
+
             val prior = previous
             if (prior != null && prior !== this) {
                 prior.uncaughtException(thread, throwable)
@@ -200,7 +240,7 @@ class CrashRecordStore private constructor(
             File(File(context.filesDir, DiagnosticExportEngine.DIAG_DIR), CRASH_SUBDIR)
 
         internal fun forDirectory(recordsDir: File): CrashRecordStore =
-            CrashRecordStore(recordsDir)
+            CrashRecordStore(recordsDir, null)
 
         internal fun sanitizeText(raw: String, maxChars: Int): String {
             return DiagnosticExportEngine.redactSensitive(raw)
