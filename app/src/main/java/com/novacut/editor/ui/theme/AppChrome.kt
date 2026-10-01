@@ -36,6 +36,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Translate
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -492,7 +493,7 @@ fun VidoraLanguagePicker(
     ) {
         ClearCutChromeIconButton(
             icon = Icons.Default.Translate,
-            contentDescription = if (language == AppLanguage.ARABIC) "اللغة" else "Language",
+            contentDescription = stringResource(com.novacut.editor.R.string.language_picker_content_description),
             onClick = { expanded = true },
             tint = ClearCutAccents.Sky,
             containerColor = LocalClearCutColors.current.panelHighest.copy(alpha = 0.96f),
@@ -505,7 +506,7 @@ fun VidoraLanguagePicker(
             containerColor = LocalClearCutColors.current.panelHighest
         ) {
             DropdownMenuItem(
-                text = { Text("العربية") },
+                text = { Text(stringResource(com.novacut.editor.R.string.language_arabic)) },
                 leadingIcon = { Text("ع") },
                 onClick = {
                     expanded = false
@@ -513,7 +514,7 @@ fun VidoraLanguagePicker(
                 }
             )
             DropdownMenuItem(
-                text = { Text("English") },
+                text = { Text(stringResource(com.novacut.editor.R.string.language_english)) },
                 leadingIcon = { Text("En") },
                 onClick = {
                     expanded = false
