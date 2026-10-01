@@ -64,7 +64,7 @@ import com.novacut.editor.R
 import com.novacut.editor.engine.ThumbnailStripPolicy
 import com.novacut.editor.engine.VideoEngine
 import com.novacut.editor.model.*
-import com.novacut.editor.ui.ClearCutTestTags
+import com.novacut.editor.ui.VidoraTestTags
 import com.novacut.editor.ui.theme.Radius
 import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
@@ -180,7 +180,7 @@ private fun TrimNumericInputRow(
                     }
                     if (!focus.isFocused) startText = formatTrimTime(trimStartMs)
                 }
-                .testTag(ClearCutTestTags.TIMELINE_TRIM_START)
+                .testTag(VidoraTestTags.TIMELINE_TRIM_START)
                 .semantics { contentDescription = trimStartDescription },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = ClearCutAccents.Peach,
@@ -217,7 +217,7 @@ private fun TrimNumericInputRow(
                     }
                     if (!focus.isFocused) endText = formatTrimTime(trimEndMs)
                 }
-                .testTag(ClearCutTestTags.TIMELINE_TRIM_END)
+                .testTag(VidoraTestTags.TIMELINE_TRIM_END)
                 .semantics { contentDescription = trimEndDescription },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = ClearCutAccents.Peach,
@@ -548,7 +548,7 @@ fun Timeline(
                         label = { Text(stringResource(R.string.timeline_track_offset_ms_label)) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .testTag(ClearCutTestTags.TRACK_OFFSET_INPUT),
+                            .testTag(VidoraTestTags.TRACK_OFFSET_INPUT),
                     )
                 }
             },
@@ -590,7 +590,7 @@ fun Timeline(
                         label = { Text(stringResource(R.string.timeline_clip_audio_sync_offset_ms_label)) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .testTag(ClearCutTestTags.CLIP_AUDIO_SYNC_OFFSET_INPUT),
+                            .testTag(VidoraTestTags.CLIP_AUDIO_SYNC_OFFSET_INPUT),
                     )
                 }
             },
@@ -2003,7 +2003,7 @@ fun Timeline(
                                                     RoundedCornerShape(Radius.xs)
                                                 )
                                             )
-                                            .testTag(ClearCutTestTags.TIMELINE_CLIP_PREFIX + clip.id)
+                                            .testTag(VidoraTestTags.TIMELINE_CLIP_PREFIX + clip.id)
                                             .semantics {
                                                 contentDescription = clipContentDescription
                                                 role = Role.Button
