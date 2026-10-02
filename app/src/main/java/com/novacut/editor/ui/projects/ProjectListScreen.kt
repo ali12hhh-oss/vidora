@@ -1033,7 +1033,6 @@ private fun ProjectEmptyState(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
                 .padding(bottom = Spacing.lg),
             verticalArrangement = Arrangement.spacedBy(Spacing.md)
         ) {
