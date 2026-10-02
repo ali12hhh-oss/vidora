@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivityResultRegistryOwner
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
@@ -103,6 +104,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val settings by settingsRepository.settings.collectAsStateWithLifecycle(initialValue = AppSettings())
+            // Keep the ActivityResultRegistry owner explicit for every Compose screen.
+            // This protects rememberLauncherForActivityResult from losing the owner
+            // when the UI provides a localized ContextImpl through LocalContext.
+            CompositionLocalProvider(
+                LocalActivityResultRegistryOwner provides this@MainActivity
+            ) {
             ClearCutTheme(appearanceMode = settings.appearanceMode) {
                 // Create Hilt ViewModels while LocalContext is still the real Activity.
                 // The UI below replaces LocalContext with a localized ContextImpl.
@@ -258,6 +265,7 @@ class MainActivity : ComponentActivity() {
                     language = settings.language,
                     onLanguageSelected = { language -> lifecycleScope.launch { settingsRepository.updateLanguage(language) } }
                 )
+            }
             }
         }
     }
