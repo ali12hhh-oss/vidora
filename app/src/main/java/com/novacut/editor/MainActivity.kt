@@ -104,6 +104,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             val settings by settingsRepository.settings.collectAsStateWithLifecycle(initialValue = AppSettings())
             ClearCutTheme(appearanceMode = settings.appearanceMode) {
+                // Create Hilt ViewModels while LocalContext is still the real Activity.
+                // The UI below replaces LocalContext with a localized ContextImpl.
+                val projectListViewModel: ProjectListViewModel = hiltViewModel()
+                val settingsViewModel: SettingsViewModel = hiltViewModel()
+                val editorViewModel: EditorViewModel = hiltViewModel()
                 val baseContext = LocalContext.current
                 val localizedContext = remember(settings.language) { baseContext.withAppLanguage(settings.language) }
                 val localizedConfiguration = remember(settings.language) { localizedContext.resources.configuration }
@@ -114,16 +119,6 @@ class MainActivity : ComponentActivity() {
                     LocalLayoutDirection provides layoutDirection
                 ) {
                 val navController = rememberNavController()
-                // Hilt's Compose integration requires the real Activity context.
-                // LocalContext is intentionally replaced below with a localized ContextImpl
-                // for resource localization, so resolve each screen ViewModel explicitly
-                // while temporarily restoring the Activity context.
-                val projectListViewModel: ProjectListViewModel = CompositionLocalProvider(
-                    LocalContext provides this@MainActivity
-                ) { hiltViewModel() }
-                val settingsViewModel: SettingsViewModel = CompositionLocalProvider(
-                    LocalContext provides this@MainActivity
-                ) { hiltViewModel() }
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = currentBackStackEntry?.destination?.route
                 val rootModifier = Modifier
@@ -233,9 +228,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
-                            val editorViewModel: EditorViewModel = CompositionLocalProvider(
-                                LocalContext provides this@MainActivity
-                            ) { hiltViewModel() }
                             EditorScreen(
                                 onBack = { navController.popBackStack() },
                                 viewModel = editorViewModel
@@ -254,9 +246,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
-                            val editorViewModel: EditorViewModel = CompositionLocalProvider(
-                                LocalContext provides this@MainActivity
-                            ) { hiltViewModel() }
                             EditorScreen(
                                 onBack = { navController.popBackStack() },
                                 viewModel = editorViewModel
